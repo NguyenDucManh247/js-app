@@ -13,7 +13,7 @@ services:
     volumes:
       - mongo-data:/data/db
   mongo-express:
-    image: mongo-express
+    image: mongo-express:1.0.2-20-alpine3.19
     ports:
       - 8081:8081
     restart: always
