@@ -1,0 +1,29 @@
+services:
+  js-app:
+    image: nguyenducmanh247/js-app:latest
+    ports:
+      - 3000:3000
+  mongodb:
+    image: mongo
+    ports:
+      - 27017:27017
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=manh
+      - MONGO_INITDB_ROOT_PASSWORD=manh
+    volumes:
+      - mongo-data:/data/db
+  mongo-express:
+    image: mongo-express
+    ports:
+      - 8081:8081
+    restart: always
+    environment:
+      - ME_CONFIG_MONGODB_ADMINUSERNAME=manh
+      - ME_CONFIG_MONGODB_ADMINPASSWORD=manh
+      - ME_CONFIG_MONGODB_SERVER=mongodb
+      - ME_CONFIG_MONGODB_URL=mongodb://manh:manh@mongodb:27017/
+    depends_on:
+      - "mongodb"
+volumes:
+  mongo-data:
+    driver: local
