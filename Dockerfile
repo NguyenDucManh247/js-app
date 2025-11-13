@@ -1,4 +1,4 @@
-FROM node:20-alpine
+FROM node:25-alpine
 
 ENV MONGO_DB_USERNAME=manh \
     MONGO_DB_PWD=manh

@@ -4,7 +4,7 @@ services:
     ports:
       - 3000:3000
   mongodb:
-    image: mongo
+    image: mongo:8.0-noble
     ports:
       - 27017:27017
     environment:
