@@ -1,0 +1,51 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: js-app
+  namespace: jsa
+  labels:
+    app: js-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: js-app
+  template:
+    metadata:
+      labels:
+        app: js-app
+    spec:
+      containers:
+      - name: js-app
+        image: nguyenducmanh247/js-app:2.0
+        ports:
+        - containerPort: 3000
+        env:
+        - name: USER_NAME
+          valueFrom:
+            secretKeyRef:
+              name: mongo-secret
+              key: mongo-user
+        - name: USER_PWD
+          valueFrom:
+            secretKeyRef:
+              name: mongo-secret
+              key: mongo-password
+        - name: DB_URL
+          valueFrom:
+            configMapKeyRef:
+              name: mongo-configmap
+              key: mongo-url
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: js-app-service
+spec:
+  type: LoadBalancer
+  selector:
+    app: js-app
+  ports:
+  - protocol: TCP
+    port: 3000
+    targetPort: 3000
