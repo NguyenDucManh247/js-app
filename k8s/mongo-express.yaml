@@ -35,7 +35,7 @@ spec:
               valueFrom:
                 configMapKeyRef:
                   name: mongo-configmap
-                  key: database-url
+                  key: host-only
 ---
 apiVersion: v1
 kind: Service
