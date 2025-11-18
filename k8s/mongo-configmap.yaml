@@ -4,4 +4,4 @@ metadata:
   name: mongo-configmap
   namespace: jsa
 data:
-  database-url: mongodb-service
+  database-url: "mongodb://manh:manh@mongodb-service:27017/"
