@@ -1,6 +1,6 @@
 services:
   js-app:
-    image: nguyenducmanh247/js-app:2.0
+    image: nguyenducmanh247/js-app:3.0
     ports:
       - 3000:3000
   mongodb:

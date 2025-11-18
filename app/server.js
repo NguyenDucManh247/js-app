@@ -26,6 +26,9 @@ let mongoUrlLocal = "mongodb://manh:manh@localhost:27017/";
 // use when starting application as docker container, part of docker-compose
 let mongoUrlDockerCompose = "mongodb://manh:manh@mongodb:27017/";
 
+// use when starting application inside Kubernetes
+let mongoUrlK8s = process.env.DB_URL || "mongodb://manh:manh@mongodb-service:27017/";
+
 // pass these options to mongo client connect request to avoid DeprecationWarning for current Server Discovery and Monitoring engine
 let mongoClientOptions = { useNewUrlParser: true, useUnifiedTopology: true };
 
@@ -36,7 +39,7 @@ let collectionName = "users";
 app.get('/get-profile', function (req, res) {
   let response = {};
   // Connect to the db using local application or docker compose variable in connection properties
-  MongoClient.connect(mongoUrlDockerCompose, mongoClientOptions, function (err, client) {
+  MongoClient.connect(mongoUrlK8s, mongoClientOptions, function (err, client) {
     if (err) throw err;
 
     let db = client.db(databaseName);
@@ -57,7 +60,7 @@ app.get('/get-profile', function (req, res) {
 app.post('/update-profile', function (req, res) {
   let userObj = req.body;
   // Connect to the db using local application or docker compose variable in connection properties
-  MongoClient.connect(mongoUrlDockerCompose, mongoClientOptions, function (err, client) {
+  MongoClient.connect(mongoUrlK8s, mongoClientOptions, function (err, client) {
     if (err) throw err;
 
     let db = client.db(databaseName);
@@ -79,4 +82,3 @@ app.post('/update-profile', function (req, res) {
 app.listen(3000, function () {
   console.log("app listening on port 3000!");
 });
-
