@@ -4,4 +4,4 @@ metadata:
   name: mongo-configmap
   namespace: jsa
 data:
-  database-url: mongo-service
+  database-url: mongodb-service
